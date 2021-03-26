@@ -6,7 +6,7 @@ Développement d'une application simplifiée de e-commerce.
 
 ## Auteur
 
-Nom, Prénom
+MANKITA KOULOUBOUKA, Persi
 
 ## Liens utiles
 
