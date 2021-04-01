@@ -27,6 +27,26 @@
 <div class="products">
 
 <!-- TODO: Afficher la liste des produits ici -->
+    <?php
+    foreach($params['products'] as $par){?>
+        <div class="card">
+
+        <p class="card-image">
+            <img src="/public/images/<?=$par['image']?>"/>
+        </p>
+        <p class="card-category">
+            <?= $par['NomCategory']?>
+        </p>
+
+        <p class="card-title">
+            <a href="/store/<?$par['identifiant']?>">
+                <?= $par['identifiant'] ?>
+            </a>
+        </p>
+        <p class="card-price">
+            <?=$par['price']?> €
+        </p>
+    </div><?php } ?>
 
 </div>
 

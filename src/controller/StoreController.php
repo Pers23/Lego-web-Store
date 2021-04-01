@@ -8,12 +8,15 @@ class StoreController {
   {
     // Communications avec la base de données
     $categories = \model\StoreModel::listCategories();
+    $products = \model\StoreModel::listProducts();
 
     // Variables à transmettre à la vue
     $params = array(
       "title" => "Store",
       "module" => "store.php",
-      "categories" => $categories
+      "categories" => $categories,
+        "products" =>$products
+
     );
 
     // Faire le rendu de la vue "src/view/Template.php"
