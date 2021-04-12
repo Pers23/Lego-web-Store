@@ -1,4 +1,6 @@
+
 <div id="store">
+
 
 <!-- Filtrer l'affichage des produits  ---------------------------------------->
 
@@ -28,7 +30,7 @@
 
 <!-- TODO: Afficher la liste des produits ici -->
     <?php
-    foreach($params['products'] as $par){?>
+    foreach($params['listproducts'] as $par){?>
         <div class="card">
 
         <p class="card-image">
@@ -39,8 +41,8 @@
         </p>
 
         <p class="card-title">
-            <a href="/store/<?$par['identifiant']?>">
-                <?= $par['identifiant'] ?>
+            <a href="/store/<?=$par['identifiant']?>">
+                <?= $par['NomProduit'] ?>
             </a>
         </p>
         <p class="card-price">

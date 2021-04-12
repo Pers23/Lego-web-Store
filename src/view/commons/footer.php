@@ -9,4 +9,7 @@
     <p>
         L2 informatique - 2021
     </p>
+    <p id="auj">
+        <script src="/public/scripts/product.js">
+    </p>
 </footer>

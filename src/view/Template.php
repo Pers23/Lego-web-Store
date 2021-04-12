@@ -8,6 +8,7 @@ class Template {
 
 <!DOCTYPE html>
 <html>
+      <meta charset="UTF-8"/>
 
 <head>
 

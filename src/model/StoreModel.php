@@ -39,5 +39,25 @@ class StoreModel {
       // Retourner les résultats (type array)
       return $req->fetchAll();
   }
+  /**
+   * Fonction permettant de récupérer les informations du produit spécifié
+   */
+
+  static function infoProduct($id){
+  //Connexion à la base de donnée
+      $db =\model\Model::connect();
+
+  //Requête SQL
+  $sql = "SELECT product.name AS NomProduit,price,image,image_alt1 ,image_alt2 ,image_alt3,spec,category.name AS NomCategory FROM product INNER JOIN category ON category.id = product.category WHERE product.id = $id";
+  //Exécution de la requête
+
+      $req = $db->prepare($sql);
+      $req->execute();
+
+      //Retourner le résultat
+
+      return $req->fetch();
+
+  }
 
 }
