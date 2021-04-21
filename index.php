@@ -1,9 +1,11 @@
 <?php
-
+/** Démarrage de la session */
+session_start();
 /** Initialisation de l'autoloading et du router ******************************/
 
 require('src/Autoloader.php');
 Autoloader::register();
+
 
 $router = new router\Router(basename(__DIR__));
 
@@ -27,12 +29,15 @@ $router->get('/account','controller\AccountController@account');
 
 //POST "/login"
 
-$router->post('/login','controller\AccountController@login');
+$router->post('/account/login','controller\AccountController@login');
 
 //POST "/signin"
 
-$router->post('/signin','controller\AccountController@signin');
+$router->post('/account/signin','controller\AccountController@signin');
 
+//POST logout
+
+$router->get('/account/logout','controller\AccountController@logout');
 /** Ecoute des requêtes entrantes *********************************************/
 
 $router->listen();
