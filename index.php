@@ -23,6 +23,10 @@ $router->get('/store','controller\StoreController@store');
 //GET "store/{:num}"
 $router->get('/store/{:num}','controller\StoreController@product');
 
+//POST "notice"
+
+$router->post('/postComment/{:num}','controller\CommentController@postComment');
+
 //GET "/account"
 
 $router->get('/account','controller\AccountController@account');

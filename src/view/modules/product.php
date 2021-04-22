@@ -1,7 +1,7 @@
-<?php $p = $params["product"];?>
+
 
 <div id="product">
-
+    <?php $p = $params["product"];?>
     <div>
         <div class="product-images">
             <img src="/public/images/<?=$p["image"]?>" id="principal"/>
@@ -16,7 +16,6 @@
                      </div>
 
                      <div>
-                         w
                          <img src="/public/images/<?=$p["image_alt2"]?>" alt="" id="i3"/>
                      </div>
                      <div>
@@ -67,10 +66,42 @@
                 </h2>
                 <?= $p["spec"]?>
             </div>
-            <div id="product-comments">
+            <div class="product-comments">
                 <h2> Avis :</h2>
+                <?php
+                if(empty($params['comment'])){
+                ?>
                 <p>Il n'y a pas d'avis sur ce produit 😅😅😅.</p>
+<?php
+                }else{
+                foreach($params['comment'] as $c){?>
+                <div class="product-comment">
+                    <p>
+                        <b><div class="product-comment-author"><?=$c['firstname']." " . $c['lastname']?></div></b>
+
+                        <div><?= $c['content']?></div>
+                        <br>
+                        Date de publication :<?=$c['date']?>
+                        <br>
+                    </p>
+                </div>
+                <?php
+                }}
+
+                if(isset($_SESSION['usermail'])){?>
+                <form method="post" action="/postComment/<?=$p['identite'] ?>">
+                    <div>
+                        <input type="text" name="content" placeholder="Laisser un commentaire...😅"/>
+                        <input type="submit" value="poster"/>
+                    </div>
+
+                </form>
+                <?php
+                }?>
+
+
             </div>
+
         </div>
 
 

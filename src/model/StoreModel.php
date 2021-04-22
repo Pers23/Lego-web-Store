@@ -48,11 +48,11 @@ class StoreModel {
       $db =\model\Model::connect();
 
   //Requête SQL
-  $sql = "SELECT product.name AS NomProduit,price,image,image_alt1 ,image_alt2 ,image_alt3,spec,category.name AS NomCategory FROM product INNER JOIN category ON category.id = product.category WHERE product.id = $id";
+  $sql = "SELECT product.id as identite,product.name AS NomProduit,price,image,image_alt1 ,image_alt2 ,image_alt3,spec,category.name AS NomCategory FROM product INNER JOIN category ON category.id = product.category WHERE product.id = ?";
   //Exécution de la requête
 
       $req = $db->prepare($sql);
-      $req->execute();
+      $req->execute(array($id));
 
       //Retourner le résultat
 

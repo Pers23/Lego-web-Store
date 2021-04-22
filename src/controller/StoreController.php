@@ -27,6 +27,8 @@ class StoreController {
 
   public function product(int $id): void{
       $product =\model\StoreModel::infoProduct($id);
+      //Affichage de la liste des commentaires
+      $comments =\model\CommentModel::listComment($id);
       if($product == null){
           header("Location: /store");
           exit();
@@ -34,7 +36,8 @@ class StoreController {
       $params = array(
           "title" => "product",
           "module" => "product.php",
-          "product" => $product
+          "product" => $product,
+          "comment" =>$comments
       );
       // Faire le rendu de la vue "src/view/Template.php"
       \view\Template::render($params);
