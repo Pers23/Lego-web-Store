@@ -77,11 +77,11 @@
                 foreach($params['comment'] as $c){?>
                 <div class="product-comment">
                     <p>
-                        <b><div class="product-comment-author"><?=$c['firstname']." " . $c['lastname']?></div></b>
+                        <strong><div class="product-comment-author"><?=$c['firstname']." " . $c['lastname']?></div></strong>
 
-                        <div><?= $c['content']?></div>
+                        <i><div><?= $c['content']?></div></i>
                         <br>
-                        Date de publication :<?=$c['date']?>
+                    <small>Date de publication :<?=$c['date']?></small>
                         <br>
                     </p>
                 </div>
