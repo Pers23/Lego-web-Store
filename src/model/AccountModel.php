@@ -26,6 +26,7 @@ class AccountModel
         else return true;
     }
 
+
     static function signin(String $firstname,String $lastname,String $mail,String $password): bool{
         //Connexion à la base de donnée
 
@@ -48,6 +49,34 @@ class AccountModel
         return false;
     }
 
+    static function chechupdate(String $firstname,String $lastname,String $mail){
+        //Vérification de la taille des noms et prénoms
+        if ( strlen($firstname)< 2 || strlen($lastname)< 2) return false;
+        //Vérification du format de l'adresse mail
+        if(!filter_var($mail,FILTER_VALIDATE_EMAIL)) return false;
+        // Connexion à la base de données
+        $db = \model\Model::connect();
+
+        //requête SQL
+        $stmt = $db->prepare("SELECT mail FROM account WHERE mail = ?");
+        //Vérification de l'adresse mail
+        $stmt->execute(array($mail));
+        if(!$stmt->fetch()) return false;
+        return true;
+    }
+    static function updating($firstname, $lastname, $mail){
+
+        if(self::chechupdate($firstname,$lastname,$mail)){
+            $db = \model\Model::connect();
+            //echo ("Ok,c'est fait");exit();
+            $sql ="UPDATE account SET firstname=?,lastname=?,mail=? WHERE mail=?";
+            $req = $db->prepare($sql);
+            $req->execute(array($firstname, $lastname, $mail,$_SESSION['usermail']));
+            return true;
+        }
+        return false;
+    }
+
     static function login($mail,$password){
         //Connexion à la base de donnée
         $db = \model\Model::connect();
@@ -60,7 +89,11 @@ class AccountModel
 
            if(password_verify($password , $user['password'])) return $user;
            return null;
-
     }
+    /*static function changeInfos(){
+        //Connexion à la base de donnée
+        $db = \model\Model::connect();
+        //requête
+    }*/
 
 }

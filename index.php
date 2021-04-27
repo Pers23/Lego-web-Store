@@ -45,6 +45,9 @@ $router->post('/account/signin','controller\AccountController@signin');
 //Route pour la deconnexion
 
 $router->get('/account/logout','controller\AccountController@logout');
+//Routes vers les informations du compte
+$router->get('/account/infos','controller\AccountController@infos');
+$router->post('/account/update','controller\AccountController@update');
 /** Ecoute des requêtes entrantes *********************************************/
 
 $router->listen();

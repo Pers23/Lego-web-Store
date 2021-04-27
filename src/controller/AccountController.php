@@ -58,4 +58,27 @@ class AccountController
         header('Location: /account?status=logout_success');
         exit();
     }
+    public function infos(){
+        $params=[
+            "title" => "Personal info",
+            "module" => "infos.php"
+        ];
+        // Faire le rendu de la vue "src/view/Template.php"
+        \view\Template::render($params);
+}
+public  function update(){
+        $lastname = htmlspecialchars($_POST['userlastname']);
+        $firstname = htmlspecialchars($_POST['userfirstname']);
+        $mail = htmlspecialchars($_POST['usermail']);
+        $verif = \model\AccountModel::updating($firstname,$lastname,$mail);
+        if($verif){
+            $_SESSION['userlastname'] = $lastname;
+            $_SESSION['userfirstname'] = $firstname;
+            $_SESSION['usermail'] = $mail;
+            header('Location: /account/infos?status=update_success');
+            exit();
+        }
+    header('Location: /account/infos?status=update_fail');
+    exit();
+}
 }
