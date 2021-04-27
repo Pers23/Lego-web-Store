@@ -4,7 +4,7 @@
 
 <!-- Filtrer l'affichage des produits  ---------------------------------------->
 
-<form>
+<form action="/store/search" method="POST" name="">
 
   <h4>Rechercher</h4>
   <input type="text" name="search" placeholder="Rechercher un produit" />
@@ -17,8 +17,8 @@
   <?php } ?>
 
   <h4>Prix</h4>
-  <input type="radio" name="order" /> Croissant <br />
-  <input type="radio" name="order" /> Décroissant <br />
+  <input type="radio" name="order" value="the_most"/> Croissant <br />
+  <input type="radio" name="order" value="the_less"/> Décroissant <br />
 
   <div><input type="submit" value="Appliquer" /></div>
 

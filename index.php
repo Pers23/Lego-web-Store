@@ -11,35 +11,38 @@ $router = new router\Router(basename(__DIR__));
 
 /** Définition des routes *****************************************************/
 
-// GET "/"
+// Route vers la page d'accueuil
 $router->get('/', 'controller\IndexController@index');
 
-// Erreur 404
+// S'il n'y a pas la route demandée
 $router->whenNotFound('controller\ErrorController@error');
 
-//GET "/Store"
+//Route vers le Store
 $router->get('/store','controller\StoreController@store');
 
-//GET "store/{:num}"
+//Envoi de la requête de recherche
+
+$router->post('/store/search','controller\StoreController@search');
+
+//Route vers un article du store
 $router->get('/store/{:num}','controller\StoreController@product');
 
-//POST "notice"
-
+//Envoi des commentaires
 $router->post('/postComment/{:num}','controller\CommentController@postComment');
 
-//GET "/account"
+//Route vers le compte
 
 $router->get('/account','controller\AccountController@account');
 
-//POST "/login"
+//Envoi du formulaire de connexion
 
 $router->post('/account/login','controller\AccountController@login');
 
-//POST "/signin"
+//Envoi du formulaire d'inscription
 
 $router->post('/account/signin','controller\AccountController@signin');
 
-//POST logout
+//Route pour la deconnexion
 
 $router->get('/account/logout','controller\AccountController@logout');
 /** Ecoute des requêtes entrantes *********************************************/

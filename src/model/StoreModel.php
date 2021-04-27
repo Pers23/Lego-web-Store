@@ -60,4 +60,105 @@ class StoreModel {
 
   }
 
+  //Fonction permettant la recherche d'élémentds
+    static function searchEngine($name,$category,$price){
+
+        //Connexion à la base de donnée
+        $db =\model\Model::connect();
+        $cat1=(isset($category[0]))? $category[0]:'';
+        $cat2=(isset($category[1]))? $category[1]:'';
+        $cat3=(isset($category[2]))? $category[2]:'';
+        $sql = null;
+        // get the search terms from the url
+        $name="%".$name."%";
+        if(isset($name) && !isset($category) && !isset($price)) {
+            //echo ("nom");exit();
+            $sql = "SELECT product.id as identifiant,product.name as NomProduit,price,image,category.name as NomCategory FROM product INNER JOIN category ON category.id = product.category WHERE product.name LIKE (?)";
+            //Exécution de la requête
+            $req = $db->prepare($sql);
+            $req->execute(array($name));
+            //Retourner le résultat
+            return $req->fetchAll();
+
+        }elseif(!isset($name) && isset($category) && !isset($price)){
+            //echo ("cat");exit();
+            $sql = "SELECT product.id as identifiant,product.name as NomProduit,price,image,category.name as NomCategory FROM product INNER JOIN category ON category.id = product.category WHERE category.name IN (?,?,?)";
+            $req = $db->prepare($sql);
+            //Exécution de la requête
+
+                $req->execute(array($cat1,$cat2,$cat3));
+            //Retourner le résultat
+            return $req->fetchAll();
+        }elseif(!isset($name) && !isset($category) && isset($price)){
+            //echo ("prix");exit();
+            if($price == 'the_most')
+            {
+                $sql = "SELECT product.id as identifiant,product.name as NomProduit,price,image,category.name as NomCategory FROM product INNER JOIN category ON category.id = product.category  ORDER BY price ASC ";
+            }
+            else{
+                $sql = "SELECT product.id as identifiant,product.name as NomProduit,price,image,category.name as NomCategory FROM product INNER JOIN category ON category.id = product.category  ORDER BY price DESC ";
+            }
+            //Exécution de la requête
+            $req = $db->prepare($sql);
+            $req->execute();
+            //Retourner le résultat
+            return $req->fetchAll();
+        } elseif(isset($name) && isset($category) && !isset($price) ){
+            //echo ("nom et category");exit();
+            $sql = "SELECT product.id as identifiant,product.name as NomProduit,price,image,category.name as NomCategory FROM product INNER JOIN category ON category.id = product.category WHERE category.name IN(?,?,?) AND product.name LIKE (?)";
+            //Exécution de la requête
+            $req = $db->prepare($sql);
+            $req->execute(array($cat1,$cat2,$cat3,$name));
+            //Retourner le résultat
+            return $req->fetchAll();
+        }elseif(isset($name) && !isset($category) && isset($price)){
+            //echo ("nom et prix");exit();
+            if($price == 'the_most'){
+                $sql = "SELECT product.id as identifiant,product.name as NomProduit,price,image,category.name as NomCategory FROM product INNER JOIN category ON category.id = product.category WHERE product.name LIKE (?)  ORDER BY price ASC ";
+            }
+            else{
+                $sql = "SELECT product.id as identifiant,product.name as NomProduit,price,image,category.name as NomCategory FROM product INNER JOIN category ON category.id = product.category WHERE product.name LIKE (?)  ORDER  BY price DESC ";
+            }
+            //Exécution de la requête
+            $req = $db->prepare($sql);
+            $req->execute(array($name));
+            //Retourner le résultat
+            return $req->fetchAll();
+        }elseif(isset($name) && isset($category) && isset($price)){
+            //echo ("cat prix");exit();
+            if ($price == 'the_most'){
+                $sql = "SELECT product.id as identifiant,product.name as NomProduit,price,image,category.name as NomCategory FROM product INNER JOIN category ON category.id = product.category WHERE category.name IN(?,?,?) ORDER BY price ASC ";
+            }
+            else {
+                $sql = "SELECT product.id as identifiant,product.name as NomProduit,price,image,category.name as NomCategory FROM product INNER JOIN category ON category.id = product.category WHERE category.name IN(?,?,?)  ORDER BY price DESC ";
+            }
+            //Exécution de la requête
+            $req = $db->prepare($sql);
+            $req->execute(array($cat1,$cat2,$cat3));
+            //Retourner le résultat
+            return $req->fetchAll();
+        } elseif(isset($name) && isset($category) && isset($price)){
+            //echo ("tout");exit();
+            if($price == 'the_most'){
+                $sql = "SELECT product.id as identifiant,product.name as NomProduit,price,image,category.name as NomCategory FROM product INNER JOIN category ON category.id = product.category WHERE category.name IN(?,?,?) AND product.name LIKE (?) ORDER BY price ASC ";
+            }
+            else{
+                $sql = "SELECT product.id as identifiant,product.name as NomProduit,price,image,category.name as NomCategory FROM product INNER JOIN category ON category.id = product.category WHERE category.name IN(?,?,?) AND product.name LIKE (?) ORDER BY price DESC ";
+            }
+            //Exécution de la requête
+            $req = $db->prepare($sql);
+            $req->execute(array($cat1,$cat2,$cat3,$name));
+            //Retourner le résultat
+            return $req->fetchAll();
+
+        }
+        if($sql == null) {
+            //echo("rien");exit();
+            return self::listProducts();
+        }
+
+
+
+    }
+
 }
