@@ -48,6 +48,9 @@ $router->get('/account/logout','controller\AccountController@logout');
 //Routes vers les informations du compte
 $router->get('/account/infos','controller\AccountController@infos');
 $router->post('/account/update','controller\AccountController@update');
+//Route vers le panier
+$router->get('/cart','controller\CartController@cart');
+$router->post('cart/add','controller\CartController@add');
 /** Ecoute des requêtes entrantes *********************************************/
 
 $router->listen();

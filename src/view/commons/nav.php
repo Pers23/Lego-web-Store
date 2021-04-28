@@ -6,7 +6,7 @@
         <a href="/">Accueil</a>
         <a href="/store">Boutique</a>
         <a class="account" href="/account/infos" ><img src="/public/images/avatar.png"><?php echo $_SESSION['userfirstname']. " " .$_SESSION['userlastname']; ?></a>
-        <a href="">Panier</a>
+        <a href="/cart">Panier</a>
         <a href="/account/logout">Déconnexion</a>
     </nav>
 <?php
